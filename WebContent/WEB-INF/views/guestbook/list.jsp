@@ -10,6 +10,8 @@ List<GuestbookVo> guestbookList = (List<GuestbookVo>) request.getAttribute("gLis
 
 System.out.println("==========JSP=========");
 System.out.println(guestbookList);
+
+UserVo authUser = (UserVo) session.getAttribute("authUser");
 %>
 
 
@@ -31,20 +33,32 @@ System.out.println(guestbookList);
 
 		<div id="header" class="clearfix">
 			<h1>
-				<a href="">MySite</a>
+				<a href="/mysite/main">MySite</a>
 			</h1>
 
-			<!-- 
+			<%
+			if (authUser != null) {
+			%>
+
 			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
+				<li><%=authUser.getName()%>님 안녕하세요^^)b</li>
+				<li><a href="/mysite/user?action=logout" class="btn_s">로그아웃</a></li>
 				<li><a href="" class="btn_s">회원정보수정</a></li>
 			</ul>
-			-->
+
+			<%
+			} else {
+			%>
+
 			<ul>
-				<li><a href="" class="btn_s">로그인</a></li>
+				<li><a href="/mysite/user?action=loginForm" class="btn_s">로그인</a></li>
 				<li><a href="/mysite/user?action=joinForm" class="btn_s">회원가입</a></li>
 			</ul>
+
+			<%
+			}
+			%>
+
 
 		</div>
 		<!-- //header -->
@@ -54,7 +68,7 @@ System.out.println(guestbookList);
 				<li><a href="">입사지원서</a></li>
 				<li><a href="">게시판</a></li>
 				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
+				<li><a href="/mysite/guest?action=list">방명록</a></li>
 			</ul>
 		</div>
 		<!-- //nav -->
@@ -94,11 +108,9 @@ System.out.println(guestbookList);
 							</colgroup>
 							<tbody>
 								<tr>
-									<th><label class="form-text" for="input-uname">이름</label>
-									</th>
+									<th><label class="form-text" for="input-uname">이름</label></th>
 									<td><input id="input-uname" type="text" name="name"></td>
-									<th><label class="form-text" for="input-pass">패스워드</label>
-									</th>
+									<th><label class="form-text" for="input-pass">패스워드</label></th>
 									<td><input id="input-pass" type="password" name="password"></td>
 								</tr>
 								<tr>
