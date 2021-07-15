@@ -71,16 +71,11 @@ UserVo userVo = (UserVo) request.getAttribute("userVo");
 
 							<!-- //나이 -->
 							<div class="form-group">
-								
-								<%if ("male".equals(userVo.getSex())) { %> 
-								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio" id="rdo-male" name="sex" value="male"
-								checked="checked">
-								<label for="rdo-female">여</label> <input type="radio" id="rdo-female" name="sex" value="femail">
-								
-								<% } else {%> 
-								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio" id="rdo-male" name="sex" value="male">
-								<label for="rdo-female">여</label> <input type="radio" id="rdo-female" name="sex" value="femail" checked="checked">
-								<% }%>
+
+								<span class="form-text">성별</span> <label for="rdo-male">남</label> 
+                        <input type="radio" id="rdo-male" name="sex" value="male" <%if("male".equals(userVo.getSex())) {%> checked = "checked" <% } %>> 
+                        <label for="rdo-female">여</label> 
+                        <input type="radio" id="rdo-female" name="sex" value="female" <% if("female".equals(userVo.getSex())){ %> checked = "checked" <%}%>>
 
 							</div>
 
