@@ -29,6 +29,14 @@ public class UserVo {
 		this.sex = sex;
 	}
 	
+	public UserVo(int no, String password, String name, String sex) {
+		super();
+		this.no = no;
+		this.password = password;
+		this.name = name;
+		this.sex = sex;
+	}
+	
 	public int getNo() {
 		return no;
 	}

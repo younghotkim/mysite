@@ -157,12 +157,11 @@ public class UserController extends HttpServlet {
 			UserVo authUser = (UserVo) session.getAttribute("authUser");
 			int authUserNo = authUser.getNo();
 			
-			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String sex = request.getParameter("sex");
 
-			UserVo userVo = new UserVo(authUserNo, id, name, password, sex);
+			UserVo userVo = new UserVo(authUserNo, name, password, sex);
 
 			UserDao userDao = new UserDao();
 
