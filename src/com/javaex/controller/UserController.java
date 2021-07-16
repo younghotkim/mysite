@@ -168,10 +168,13 @@ public class UserController extends HttpServlet {
 			UserDao userDao = new UserDao();
 
 			userDao.userModify(userVo);
+			
+			// = ((UserVo)sessioion.getAttribute("authUser")).setName(name);
 
 			authUser.setName(name);
-			authUser.setPassword(password);
-			authUser.setSex(sex);
+			
+			//authUser.setPassword(password);
+			//authUser.setSex(sex); 바꿀 필요 없음
 			
 			WebUtil.redirect(request, response, "/mysite/main");
 

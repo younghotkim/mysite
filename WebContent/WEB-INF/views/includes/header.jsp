@@ -3,7 +3,7 @@
 
 <%
 UserVo authUser = (UserVo) session.getAttribute("authUser");
-System.out.println(authUser);
+//System.out.println(authUser);
 %>
 
 <div id="header" class="clearfix">
