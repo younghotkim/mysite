@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.dao.*"%>
-<%@ page import="com.javaex.vo.*"%>
-<%@ page import='java.util.List'%>
 
-<%
-int no = (int) request.getAttribute("guestNo");
-//어트리뷰트 받기
-
-//어트리뷰트 받은 no를 html에서 사용
-
-UserVo authUser = (UserVo) session.getAttribute("authUser");
-%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -69,7 +58,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 								<td><a href="/mysite/guest?action=list">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type='hidden' name="no" value="<%=no%>"> <input type='hidden' name="action" value="delete">
+						<input type='hidden' name="no" value="${param.no}"> <input type='hidden' name="action" value="delete">
 					</form>
 
 				</div>

@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.List"%>
-<%@ page import="com.javaex.dao.*"%>
-<%@ page import="com.javaex.vo.*"%>
-
-
-<%
-List<GuestbookVo> guestbookList = (List<GuestbookVo>) request.getAttribute("gList");
-
-System.out.println("==========JSP=========");
-System.out.println(guestbookList);
-
-UserVo authUser = (UserVo) session.getAttribute("authUser");
-%>
-
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,29 +21,26 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 				<a href="/mysite/main">MySite</a>
 			</h1>
 
-			<%
-			if (authUser != null) {
-			%>
+			<c:choose>
+				<c:when test="${!empty authUser}">
 
-			<ul>
-				<li><%=authUser.getName()%>님 안녕하세요^^)b</li>
-				<li><a href="/mysite/user?action=logout" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
+					<ul>
+						<li>${authUser.name}님안녕하세요^^)b</li>
+						<li><a href="/mysite/user?action=logout" class="btn_s">로그아웃</a></li>
+						<li><a href="" class="btn_s">회원정보수정</a></li>
+					</ul>
+				</c:when>
 
-			<%
-			} else {
-			%>
+				<c:otherwise>
 
-			<ul>
-				<li><a href="/mysite/user?action=loginForm" class="btn_s">로그인</a></li>
-				<li><a href="/mysite/user?action=joinForm" class="btn_s">회원가입</a></li>
-			</ul>
+					<ul>
+						<li><a href="/mysite/user?action=loginForm" class="btn_s">로그인</a></li>
+						<li><a href="/mysite/user?action=joinForm" class="btn_s">회원가입</a></li>
+					</ul>
 
-			<%
-			}
-			%>
+				</c:otherwise>
 
+			</c:choose>
 
 		</div>
 		<!-- //header -->
@@ -128,32 +110,28 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 					</form>
 
 
-					<%
-					for (int i = 0; i < guestbookList.size(); i++) {
-					%>
+					<c:forEach items="${gList}" var="guestbookList">
 
-					<table class="guestRead">
-						<colgroup>
-							<col style="width: 10%;">
-							<col style="width: 40%;">
-							<col style="width: 40%;">
-							<col style="width: 10%;">
-						</colgroup>
-						<tr>
-							<td><%=guestbookList.get(i).getNo()%></td>
-							<td><%=guestbookList.get(i).getName()%></td>
-							<td><%=guestbookList.get(i).getReg_date()%></td>
-							<td><a href="/mysite/guest?action=dform&no=<%=guestbookList.get(i).getNo()%>">[삭제]</a></td>
-						</tr>
-						<tr>
-							<td colspan=4 class="text-left"><%=guestbookList.get(i).getContent()%></td>
-						</tr>
-					</table>
-					<!-- //guestRead -->
+						<table class="guestRead">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 40%;">
+								<col style="width: 40%;">
+								<col style="width: 10%;">
+							</colgroup>
+							<tr>
+								<td>${guestbookList.no}</td>
+								<td>${guestbookList.name}</td>
+								<td>${guestbookList.reg_date}</td>
+								<td><a href="/mysite/guest?action=dform&no=${guestbookList.no}">[삭제]</a></td>
+							</tr>
+							<tr>
+								<td colspan=4 class="text-left">${guestbookList.content}</td>
+							</tr>
+						</table>
+						<!-- //guestRead -->
 
-					<%
-					}
-					%>
+					</c:forEach>
 
 				</div>
 				<!-- //guestbook -->
