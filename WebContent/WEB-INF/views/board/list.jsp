@@ -75,7 +75,7 @@
 										<td>${boardList.name}</td>
 										<td>${boardList.hit}</td>
 										<td>${boardList.reg_date}</td>
-										<td><a href="">[삭제]</a></td>
+										<td><a href="/mysite/board?action=delete&no=${boardList.no}">[삭제]</a></td>
 									</tr>
 
 								</tbody>
@@ -103,7 +103,7 @@
 
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
+						<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
 
 					</div>
 					<!-- //list -->

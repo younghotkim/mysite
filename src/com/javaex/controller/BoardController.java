@@ -63,7 +63,7 @@ public class BoardController extends HttpServlet {
 		} else if ("modify".equals(action)) {
 
 			System.out.println("=======================MODIFY=======================");
-			
+
 			int no = Integer.parseInt(request.getParameter("no"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
@@ -74,7 +74,7 @@ public class BoardController extends HttpServlet {
 
 			boardDao.boardModify(boardVo);
 
-			WebUtil.redirect(request, response, "/WEB-INF/views/board/read.jsp");
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
 
 		} else if ("modifyForm".equals(action)) {
 
@@ -91,55 +91,63 @@ public class BoardController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
 
 		} else if ("post".equals(action)) {
-			
+
 			System.out.println("=======================POST=======================");
-			
+
 			HttpSession session = request.getSession();
-			UserVo authUser = (UserVo)session.getAttribute("authUser");
-			
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
+
 			String authUserName = authUser.getName();
-			
 			int authUserNo = authUser.getNo();
-			
+
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			int hit = 0;
 
-			
 			BoardVo boardVo = new BoardVo();
 			boardVo.setName(authUserName);
 			boardVo.setHit(hit);
 			boardVo.setTitle(title);
 			boardVo.setContent(content);
 			boardVo.setNo(authUserNo);
-			
-			
+
 			BoardDao boardDao = new BoardDao();
+
+			int count = boardDao.boardPost(boardVo);
 			
-			boardDao.boardPost(boardVo);
-			
+			System.out.println(count + "건이 등록되었습니다.");
+
 			WebUtil.redirect(request, response, "/mysite/board?action=list");
-			
-			
-			
+
 		} else if ("writeForm".equals(action)) {
-			
+
 			System.out.println("=======================WRITEFORM=======================");
-			
+
 			HttpSession session = request.getSession();
-			
-			UserVo authUser = (UserVo)session.getAttribute("authUser");
-			
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
+
 			int authUserNo = authUser.getNo();
-			
+
 			UserDao userDao = new UserDao();
-			
+
 			UserVo userVo = userDao.getUser(authUserNo);
-			
+
 			request.setAttribute("userVo", userVo);
-			
+
 			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
-			
+
+		} else if ("delete".equals(action)) {
+
+			System.out.println("=======================DELETE=======================");
+
+			int no = Integer.parseInt(request.getParameter("no"));
+
+			BoardDao boardDao = new BoardDao();
+
+			boardDao.boardDelete(no);
+
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+
 		}
 
 	}

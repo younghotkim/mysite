@@ -247,7 +247,7 @@ public class BoardDao {
 			pstmt.setString(1, boardVo.getTitle());
 			pstmt.setString(2, boardVo.getContent());
 			pstmt.setInt(3, boardVo.getHit());
-			pstmt.setInt(4, boardVo.getUser_no());
+			pstmt.setInt(4, boardVo.getNo());
 
 			count = pstmt.executeUpdate();
 
@@ -255,9 +255,43 @@ public class BoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		close();
-		
+
+		return count;
+
+	}
+
+	// DELETE
+
+	public int boardDelete(int no) {
+
+		int count = -1;
+
+		getConnection();
+
+		try {
+
+			String query = "";
+
+			query += " delete from board ";
+			query += " where no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, no);
+
+			count = pstmt.executeUpdate();
+
+			System.out.println(count + "건이 삭제되었습니다.");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		close();
+
 		return count;
 
 	}
