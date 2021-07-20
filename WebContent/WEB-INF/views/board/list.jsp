@@ -75,7 +75,9 @@
 										<td>${boardList.name}</td>
 										<td>${boardList.hit}</td>
 										<td>${boardList.reg_date}</td>
+										<c:if test="${boardList.user_no eq authUser.no}">
 										<td><a href="/mysite/board?action=delete&no=${boardList.no}">[삭제]</a></td>
+										</c:if>
 									</tr>
 
 								</tbody>
@@ -103,7 +105,9 @@
 
 							<div class="clear"></div>
 						</div>
+						<c:if test="${!empty authUser}">
 						<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
+						</c:if>
 
 					</div>
 					<!-- //list -->
