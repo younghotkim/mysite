@@ -34,7 +34,18 @@ public class BoardController extends HttpServlet {
 
 			BoardDao boardDao = new BoardDao();
 
-			List<BoardVo> boardList = boardDao.getBoardList();
+			List<BoardVo> boardList;
+
+			String keyword = request.getParameter("keyword");
+
+			if (keyword != null) {
+
+				boardList = boardDao.getBoardList(keyword);
+
+			} else {
+
+				boardList = boardDao.getBoardList();
+			}
 
 			request.setAttribute("bList", boardList);
 
@@ -114,7 +125,7 @@ public class BoardController extends HttpServlet {
 			BoardDao boardDao = new BoardDao();
 
 			int count = boardDao.boardPost(boardVo);
-			
+
 			System.out.println(count + "건이 등록되었습니다.");
 
 			WebUtil.redirect(request, response, "/mysite/board?action=list");

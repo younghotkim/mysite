@@ -62,7 +62,7 @@ public class BoardDao {
 
 	// LIST
 
-	public List<BoardVo> getBoardList() {
+	public List<BoardVo> getBoardList(String keyword) {
 
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 
@@ -80,9 +80,25 @@ public class BoardDao {
 			query += " 		  to_char(b.reg_date, 'YY-MM-DD HH24:MI') reg_date";
 			query += " from board b, users u ";
 			query += " where u.no = b.user_no ";
-			query += " order by b.no desc";
 
-			pstmt = conn.prepareStatement(query);
+			
+			if(keyword !="" || keyword == null) {
+				
+				query += " and title like ? ";
+				query += " or u.name like ? ";
+				
+				pstmt = conn.prepareStatement(query);
+				
+				pstmt.setString(1, "%" + keyword + "%");
+				pstmt.setString(2, "%" + keyword + "%");
+				
+			} else { 
+				
+				query += " order by b.no desc";
+				
+				pstmt = conn.prepareStatement(query);
+				
+			}
 
 			rs = pstmt.executeQuery();
 
@@ -94,6 +110,7 @@ public class BoardDao {
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
 				int user_no = rs.getInt("user_no");
+				
 
 				BoardVo boardVo = new BoardVo();
 				boardVo.setNo(no);
@@ -116,6 +133,12 @@ public class BoardDao {
 
 		return boardList;
 
+	}
+	
+	public List<BoardVo> getBoardList() {
+		
+		return getBoardList("");
+		
 	}
 
 	// READ
