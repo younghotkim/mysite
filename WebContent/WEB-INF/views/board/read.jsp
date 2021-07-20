@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,8 +69,8 @@
 							<div id="txt-content">
 								<span class="form-value">${boardVo.content}</span>
 							</div>
-
-							<a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no}" >수정</a> <a id="btn_modify" href="/mysite/board?action=list">목록</a>
+							<c:if test="${boardVo.user_no eq authUser.no}">
+							<a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no}">수정</a></c:if> <a id="btn_modify" href="/mysite/board?action=list">목록</a>
 
 						</form>
 						<!-- //form -->

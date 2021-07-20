@@ -129,7 +129,8 @@ public class BoardDao {
 			query += " 		  hit, ";
 			query += " 		  to_char(sysdate, 'YYYY-MM-DD') reg_date, ";
 			query += " 		  title, ";
-			query += "        content ";
+			query += "        content, ";
+			query += "        b.user_no ";
 			query += " from board b, users u ";
 			query += " where u.no = b.user_no ";
 			query += " and b.no = ? ";
@@ -147,8 +148,10 @@ public class BoardDao {
 				String bDate = rs.getString("reg_date");
 				String bTitle = rs.getString("title");
 				String bContent = rs.getString("content");
+				int user_no = rs.getInt("user_no");
 
 				boardVo = new BoardVo(bName, bHit, bDate, bTitle, bContent);
+				boardVo.setUser_no(user_no);
 
 			}
 
