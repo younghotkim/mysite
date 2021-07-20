@@ -84,13 +84,11 @@ public class BoardDao {
 			
 			if(keyword !="" || keyword == null) {
 				
-				query += " and title like ? ";
-				query += " or u.name like ? ";
+				query += " and title || u.name like ? ";
 				
 				pstmt = conn.prepareStatement(query);
 				
 				pstmt.setString(1, "%" + keyword + "%");
-				pstmt.setString(2, "%" + keyword + "%");
 				
 			} else { 
 				
