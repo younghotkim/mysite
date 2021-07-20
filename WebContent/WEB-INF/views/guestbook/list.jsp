@@ -142,7 +142,7 @@
 		</div>
 		<!-- //container  -->
 
-		<div id="footer">Copyright ⓒ 2021 김영하. All right not reserved</div>
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

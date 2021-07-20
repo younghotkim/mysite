@@ -87,6 +87,7 @@
 										<label for="rdo-female">여</label>
 										<input type="radio" id="rdo-female" name="sex" value="female" checked="checked">
 
+
 									</c:otherwise>
 
 								</c:choose>
