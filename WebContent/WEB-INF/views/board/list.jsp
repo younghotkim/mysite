@@ -63,7 +63,7 @@
 								</tr>
 							</thead>
 
-							<c:forEach items="${bList}" var="boardList">
+							<c:forEach items="${bList}" var="boardList" varStatus="status">
 
 								<tbody>
 

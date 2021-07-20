@@ -77,10 +77,10 @@ public class BoardDao {
 			query += " 		  u.name, ";
 			query += " 		  hit, ";
 			query += "        b.user_no, ";
-			query += " 		  to_char(sysdate, 'YY-MM-DD HH24:MI') reg_date";
+			query += " 		  to_char(b.reg_date, 'YY-MM-DD HH24:MI') reg_date";
 			query += " from board b, users u ";
 			query += " where u.no = b.user_no ";
-			query += " order by b.no asc";
+			query += " order by b.no desc";
 
 			pstmt = conn.prepareStatement(query);
 
@@ -95,9 +95,14 @@ public class BoardDao {
 				String reg_date = rs.getString("reg_date");
 				int user_no = rs.getInt("user_no");
 
-				BoardVo boardVo = new BoardVo(no, title, name, hit, reg_date);
+				BoardVo boardVo = new BoardVo();
+				boardVo.setNo(no);
+				boardVo.setTitle(title);
+				boardVo.setName(name);
+				boardVo.setHit(hit);
+				boardVo.setReg_date(reg_date);
 				boardVo.setUser_no(user_no);
-
+				
 				boardList.add(boardVo);
 
 			}
@@ -127,7 +132,7 @@ public class BoardDao {
 
 			query += " select u.name, ";
 			query += " 		  hit, ";
-			query += " 		  to_char(sysdate, 'YYYY-MM-DD') reg_date, ";
+			query += " 		  to_char(b.reg_date, 'YYYY-MM-DD') reg_date, ";
 			query += " 		  title, ";
 			query += "        content, ";
 			query += "        b.user_no ";
