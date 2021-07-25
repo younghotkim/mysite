@@ -81,21 +81,20 @@ public class BoardDao {
 			query += " from board b, users u ";
 			query += " where u.no = b.user_no ";
 
-			
-			if(keyword !="" || keyword == null) {
-				
+			if (keyword != "" || keyword == null) {
+
 				query += " and title || u.name like ? ";
-				
+
 				pstmt = conn.prepareStatement(query);
-				
+
 				pstmt.setString(1, "%" + keyword + "%");
-				
-			} else { 
-				
+
+			} else {
+
 				query += " order by b.no desc";
-				
+
 				pstmt = conn.prepareStatement(query);
-				
+
 			}
 
 			rs = pstmt.executeQuery();
@@ -108,7 +107,6 @@ public class BoardDao {
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
 				int user_no = rs.getInt("user_no");
-				
 
 				BoardVo boardVo = new BoardVo();
 				boardVo.setNo(no);
@@ -117,7 +115,7 @@ public class BoardDao {
 				boardVo.setHit(hit);
 				boardVo.setReg_date(reg_date);
 				boardVo.setUser_no(user_no);
-				
+
 				boardList.add(boardVo);
 
 			}
@@ -132,11 +130,11 @@ public class BoardDao {
 		return boardList;
 
 	}
-	
+
 	public List<BoardVo> getBoardList() {
-		
+
 		return getBoardList("");
-		
+
 	}
 
 	// READ
@@ -317,6 +315,42 @@ public class BoardDao {
 			count = pstmt.executeUpdate();
 
 			System.out.println(count + "건이 삭제되었습니다.");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		close();
+
+		return count;
+
+	}
+
+	// COUNT
+
+	public int getCount() {
+
+		int count = 0;
+
+		getConnection();
+
+		try {
+
+			String query = "";
+
+			query += " select count(*) ";
+			query += " from board ";
+
+			pstmt = conn.prepareStatement(query);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				count = rs.getInt(1);
+
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

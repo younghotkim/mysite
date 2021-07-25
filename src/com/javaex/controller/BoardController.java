@@ -45,6 +45,7 @@ public class BoardController extends HttpServlet {
 			} else {
 
 				boardList = boardDao.getBoardList();
+
 			}
 
 			request.setAttribute("bList", boardList);
